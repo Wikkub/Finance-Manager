@@ -5,6 +5,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.UUID;
 
@@ -16,22 +17,33 @@ public class Income {
     private String id;
     private int amount;
     @Column (name = "date_added")
-    private Date dateAdded;
+    private LocalDate dateAdded;
     private String comment;
 
     public Income(){
     }
 
-    public Income(int amount, Date dateAdded, String comment){
+    public Income(int amount, LocalDate dateAdded, String comment){
         this.id = UUID.randomUUID().toString();
-        this.dateAdded = new Date();
+        this.dateAdded = dateAdded;
         this.comment = comment;
     }
 
-    public Income(String id, int amount, Date dateAdded, String comment){
+    public Income(String id, int amount, LocalDate dateAdded, String comment){
         this.id = id;
-        this.dateAdded = new Date();
+        this.dateAdded = dateAdded;
         this.comment = comment;
     }
 
+    public void setAmount(int amount) {
+        this.amount = amount;
+    }
+
+    public void setDateAdded(LocalDate dateAdded) {
+        this.dateAdded = dateAdded;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
 }

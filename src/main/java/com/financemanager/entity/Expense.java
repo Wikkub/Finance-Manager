@@ -1,9 +1,6 @@
 package com.financemanager.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 import java.util.Date;
 import java.util.UUID;
@@ -14,8 +11,11 @@ public class Expense {
     @Id
     private String id;
     private int amount;
-    @Column(name = "category_id")
-    private String categoryId;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn (name="category_id", referencedColumnName="id", nullable=false, unique=true)
+    private Category category;
+
     @Column(name = "date_added")
     private Date dateAdded;
     private String comment;
