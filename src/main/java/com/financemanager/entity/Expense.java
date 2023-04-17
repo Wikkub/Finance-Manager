@@ -2,6 +2,7 @@ package com.financemanager.entity;
 
 import jakarta.persistence.*;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.UUID;
 
@@ -17,22 +18,61 @@ public class Expense {
     private Category category;
 
     @Column(name = "date_added")
-    private Date dateAdded;
+    private LocalDate dateAdded;
     private String comment;
 
     public Expense(){
     }
 
-    public Expense(int amount, Category category, Date dateAdded, String comment){
+    public Expense(int amount, Category category, LocalDate dateAdded, String comment){
         this.id = UUID.randomUUID().toString();
-        //this.category_id = category;
-        this.dateAdded = new Date();
+        this.amount = amount;
+        this.category = category;
+        this.dateAdded = dateAdded;
         this.comment = comment;
     }
 
-    public Expense(String id, int amount, Date dateAdded, String comment){
-        this.id = id;
-        this.dateAdded = new Date();
+//    public Expense(String id, int amount, Category categoryId, Date dateAdded, String comment){
+//        this.id = id;
+//        this.amount = amount;
+//        this.category = categoryId;
+//        this.dateAdded = new Date();
+//        this.comment = comment;
+//    }
+
+    public String getId() {
+        return id;
+    }
+
+    public int getAmount() {
+        return amount;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public LocalDate getDateAdded() {
+        return dateAdded;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setAmount(int amount) {
+        this.amount = amount;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
+    public void setDateAdded(LocalDate dateAdded) {
+        this.dateAdded = dateAdded;
+    }
+
+    public void setComment(String comment) {
         this.comment = comment;
     }
 }

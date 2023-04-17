@@ -1,16 +1,13 @@
 package com.financemanager;
 
-import com.financemanager.DbInitializer;
-import com.financemanager.entity.Category;
 import com.financemanager.entity.Expense;
 import com.financemanager.entity.Income;
 import com.financemanager.repository.CategoryRepository;
+import com.financemanager.repository.ExpenseRepository;
 import com.financemanager.repository.IncomeRepository;
 import com.financemanager.service.CategoryServices;
+import com.financemanager.service.ExpenseServices;
 import com.financemanager.service.IncomeServices;
-import org.hibernate.SessionFactory;
-import org.hibernate.cfg.Configuration;
-
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -40,6 +37,8 @@ public class Main {
             CategoryServices categoryServices = new CategoryServices(categoryRepository);
             IncomeRepository incomeRepository = new IncomeRepository();
             IncomeServices incomeServices = new IncomeServices(incomeRepository);
+            ExpenseRepository expenseRepository = new ExpenseRepository();
+            ExpenseServices expenseServices = new ExpenseServices(expenseRepository);
 
 
             boolean isProgramRunning = true;
@@ -59,7 +58,7 @@ public class Main {
                             String categoryId = SCANNER.nextLine();
                             categoryServices.deleteCategory(categoryId);
                         case 3:
-                            categoryRepository.findAll();
+                            System.out.println(categoryServices.findAll());
                             break;
                         case 4:
                             System.out.println("Provide amount");
@@ -70,9 +69,25 @@ public class Main {
                             incomeServices.addIncome(new Income(amount, LocalDate.now(), comment));
                             break;
                         case 5:
+                            System.out.println("Provide income id to delete");
+                            String incomeId = SCANNER.nextLine();
+                            incomeServices.deleteIncomeById(incomeId);
+                            break;
+                        case 6:
+                            System.out.println(incomeServices.findAll());
+                        case 7:
+                            System.out.println("Provide expense amount");
+                            int expenseAmount = SCANNER.nextInt();
+                            SCANNER.nextLine();
+                            System.out.println("Provide category id");
+                            String expenseCategoryId = SCANNER.nextLine();
+                            categoryRepository.findById(expenseCategoryId);
+                            System.out.println("Provide comment");
+                            String expenseComment = SCANNER.nextLine();
+                            expenseServices.addExpense(new Expense(expenseAmount, categoryRepository.findById(expenseCategoryId), LocalDate.now(), expenseComment));
+                        case 8:
 
                     }
-
 
                 } catch (NumberFormatException e) {
                     System.err.printf(chosenOption + "is invalid option");
@@ -90,5 +105,7 @@ public class Main {
         System.out.println("5 - Delete income");
         System.out.println("6 - Show incomes");
         System.out.println("7 - Add new expense");
+        System.out.println("8 - Delete expense");
+        System.out.println("9 - Show all expenses");
     }
 }

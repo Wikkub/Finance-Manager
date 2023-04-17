@@ -3,11 +3,11 @@ package com.financemanager.repository;
 import com.financemanager.DbConnection;
 import com.financemanager.entity.Income;
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.Query;
-import jakarta.persistence.TypedQuery;
+
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 public class IncomeRepository {
@@ -30,14 +30,17 @@ public class IncomeRepository {
     }
 
     public Set<Income> findAll() {
+        EntityManager entityManager = DbConnection.getEntityManager();
         List<Income> incomeList = entityManager.createQuery("select a from Income a", Income.class).getResultList();
         entityManager.close();
         return new HashSet<>(incomeList);
     }
 
-    public void delete(Income income) {
+    public void deleteById(String id) {
+        EntityManager entityManager = DbConnection.getEntityManager();
         entityManager.getTransaction().begin();
-        entityManager.remove(income);
+        Optional<Income> income = Optional.ofNullable(entityManager.find(Income.class, id));
+        income.ifPresent(entityManager::remove);
         entityManager.getTransaction().commit();
         entityManager.close();
     }

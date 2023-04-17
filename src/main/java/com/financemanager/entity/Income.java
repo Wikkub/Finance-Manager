@@ -13,7 +13,6 @@ import java.util.UUID;
 @Table(name = "income")
 public class Income {
     @Id
-
     private String id;
     private int amount;
     @Column (name = "date_added")
@@ -25,12 +24,14 @@ public class Income {
 
     public Income(int amount, LocalDate dateAdded, String comment){
         this.id = UUID.randomUUID().toString();
+        this.amount = amount;
         this.dateAdded = dateAdded;
         this.comment = comment;
     }
 
     public Income(String id, int amount, LocalDate dateAdded, String comment){
         this.id = id;
+        this.amount = amount;
         this.dateAdded = dateAdded;
         this.comment = comment;
     }
@@ -45,5 +46,15 @@ public class Income {
 
     public void setComment(String comment) {
         this.comment = comment;
+    }
+
+    @Override
+    public String toString() {
+        return "Income{" +
+                "id='" + id + '\'' +
+                ", amount=" + amount +
+                ", dateAdded=" + dateAdded +
+                ", comment='" + comment + '\'' +
+                '}';
     }
 }
