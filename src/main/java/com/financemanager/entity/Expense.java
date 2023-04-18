@@ -75,4 +75,15 @@ public class Expense {
     public void setComment(String comment) {
         this.comment = comment;
     }
+
+    @Override
+    public String toString() {
+        return "Expense{" +
+                "id='" + id + '\'' +
+                ", amount=" + amount +
+                ", category=" + category +
+                ", dateAdded=" + dateAdded +
+                ", comment='" + comment + '\'' +
+                '}';
+    }
 }

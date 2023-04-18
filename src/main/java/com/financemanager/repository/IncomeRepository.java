@@ -44,4 +44,11 @@ public class IncomeRepository {
         entityManager.getTransaction().commit();
         entityManager.close();
     }
+
+    public Long actualIncomesBalance() {
+        Long incomesCount = entityManager
+                .createQuery("select sum(e.amount) from Income e", Long.class)
+                .getSingleResult();
+        return incomesCount;
+    }
 }
