@@ -10,6 +10,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
@@ -105,5 +106,18 @@ public class ExpenseRepository {
                 .getSingleResult();
         return expensesCount;
     }
+
+    public List<Expense> findExpensesByDate (LocalDate date) {
+        TypedQuery<Expense> query = entityManager.createQuery("from Expense where dateAdded = :dateAdded", Expense.class);
+        query.setParameter("dateAdded", date);
+        return query.getResultList();
+    }
+
+    public List<Expense> findExpensesBetweenDates (LocalDate date, LocalDate date2) {
+        TypedQuery<Expense> query = entityManager.createQuery("from Expense where dateAdded BETWEEN :date1 AND :date2", Expense.class);
+        query.setParameter("date1", date).setParameter("date2", date2);
+        return query.getResultList();
+    }
+
 
 }

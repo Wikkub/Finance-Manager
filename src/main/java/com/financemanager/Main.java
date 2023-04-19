@@ -106,6 +106,25 @@ public class Main {
                         case 11:
                             System.out.println("Expenses sum = " + expenseRepository.actualExpensesBalance());
                             System.out.println("Incomes sum = " + incomeRepository.actualIncomesBalance());
+                            int e = Math.toIntExact(expenseRepository.actualExpensesBalance());
+                            int i = Math.toIntExact(incomeRepository.actualIncomesBalance());
+                            System.out.println("Your balance: " + (i - e));
+                            break;
+                        case 12:
+                            System.out.println(incomeServices.findAll());
+                            System.out.println(expenseServices.findAllExpenses());
+                            break;
+                        case 13:
+                            System.out.println("Provide date (YYYY-MM-DD)");
+                            LocalDate date = LocalDate.parse(SCANNER.nextLine());
+                            System.out.println(expenseServices.findExpensesByDate(date));
+                            break;
+                        case 14:
+                            System.out.println("Provide one date (YYYY-MM-DD)");
+                            LocalDate date1 = LocalDate.parse(SCANNER.nextLine());
+                            System.out.println("Provide second date (YYYY-MM-DD)");
+                            LocalDate date2 = LocalDate.parse(SCANNER.nextLine());
+                            System.out.println(expenseServices.findExpensesBetweenDates(date1, date2));
                             break;
                     }
 
@@ -129,5 +148,8 @@ public class Main {
         System.out.println("9 - Show all expenses");
         System.out.println("10 - Show expenses by category");
         System.out.println("11 - Show balance");
+        System.out.println("12 - Show incomes and expenses");
+        System.out.println("13 - Show expenses by date");
+        System.out.println("14 - Show expenses between dates");
     }
 }

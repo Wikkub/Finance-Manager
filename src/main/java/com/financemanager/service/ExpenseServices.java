@@ -2,8 +2,10 @@ package com.financemanager.service;
 
 import com.financemanager.entity.Expense;
 import com.financemanager.repository.ExpenseRepository;
+import jakarta.persistence.TypedQuery;
 
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
 
@@ -29,5 +31,13 @@ public class ExpenseServices {
 
     public List findExpensesByCategoryId(String categoryId) {
         return expenseRepository.findExpensesByCategory(categoryId);
+    }
+
+    public List<Expense> findExpensesByDate (LocalDate date) {
+        return expenseRepository.findExpensesByDate(date);
+    }
+
+    public List<Expense> findExpensesBetweenDates (LocalDate date1, LocalDate date2) {
+        return expenseRepository.findExpensesBetweenDates(date1, date2);
     }
 }
